@@ -15,7 +15,7 @@ for (int i=0;i<2;i++){
     float angleToPoint[2];
 	float angleDifference[2];
     //do this for every vertex of the square
-	for(int i=0;i<sizeof(square);i++){
+	for(int i=0;i<LEN(square);i++){
 		//calculate the angle to a square verticy
 		if(square[i][2]-playerPos[2]>=0){
 			angleToPoint[0] = atan((square[i][0]-playerPos[0])/(square[i][2]-playerPos[2]));

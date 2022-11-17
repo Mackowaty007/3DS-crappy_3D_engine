@@ -41,6 +41,10 @@ void handleInput(){
 	playerRot[1] = cutANumber(playerRot[1],PI,0);
 
 	//move the player
-	playerPos[0] += sin(playerRot[0])*circlePadPos.dx*playerSpeed*deltaTime;
-	playerPos[2] += cos(playerRot[0])*circlePadPos.dy*playerSpeed*deltaTime;
+	//fowards and backwards
+	playerPos[0] += sin(playerRot[0])*circlePadPos.dy*playerSpeed;//*deltaTime;
+	playerPos[2] += cos(playerRot[0])*circlePadPos.dy*playerSpeed;//*deltaTime;
+	//side to side
+	playerPos[0] -= sin(playerRot[0]+PI/2)*circlePadPos.dx*playerSpeed;//*deltaTime;
+	playerPos[2] -= cos(playerRot[0]+PI/2)*circlePadPos.dx*playerSpeed;//*deltaTime;
 }

@@ -6,6 +6,8 @@
 #include <stdlib.h>
 #include <math.h>
 
+#define LEN(arr) ((int) (sizeof (arr) / sizeof (arr)[0]))
+
 #define TOP_SCREEN_WIDTH  400
 #define TOP_SCREEN_HEIGHT 240
 #define BOT_SCREEN_WIDTH  320
@@ -17,7 +19,7 @@
 
 float playerPos[3] = {0,0,0};
 float playerRot[2] = {0,PI/2};
-float playerSpeed = 0.1;
+float playerSpeed = 0.06;
 //all the vertex positions
 float square[9][3] = {{-10,-10,-10},{-10,-10,10},{-10,10,-10},{-10,10,10},{10,-10,-10},{10,-10,10},{10,10,-10},{10,10,10},{0,0,0}};
 
@@ -51,10 +53,6 @@ int main(int argc, char* argv[]) {
 	u32 clrClear   = C2D_Color32(0x0F, 0x00, 0x0F, 0xFF);
     u32 vertexColor= C2D_Color32(0xF0, 0x1F, 0x0F, 0xFF);
 
-	// Stop measuring time and calculate the elapsed time
-	gettimeofday(&end, 0);
-	
-
 	// Main loop
 	while (aptMainLoop())
 	{
@@ -63,7 +61,6 @@ int main(int argc, char* argv[]) {
 
 		handleInput();
 
-		printf("\x1b[1;1H Pos x: %f y: %f",playerPos[0], playerPos[2]);
 		#include "display.h"
 		
 	}
