@@ -31,14 +31,28 @@ void handleInput(){
 
 	//rotate the player
 	if (kHeld & KEY_A)
-		playerRot[0] -= 0.1f;
+		playerRot[0] -= rotSpeed;//*deltaTime;
 	if (kHeld & KEY_Y)
-		playerRot[0] += 0.1f;
+		playerRot[0] += rotSpeed;//*deltaTime;
 	if (kHeld & KEY_X)
-		playerRot[1] += 0.1f;
+		playerRot[1] += rotSpeed;//*deltaTime;
 	if (kHeld & KEY_B)
-		playerRot[1] -= 0.1f;
+		playerRot[1] -= rotSpeed;//*deltaTime;
+
 	playerRot[1] = cutANumber(playerRot[1],PI,0);
+
+	if(playerRot[0]>PI){
+		playerRot[0] -= 2*PI;
+	}
+	if(playerRot[0]<-PI){
+		playerRot[0] += 2*PI;
+	}
+	if(playerRot[1]>PI){
+		playerRot[1] -= 2*PI;
+	}
+	if(playerRot[1]<-PI){
+		playerRot[1] += 2*PI;
+	}
 
 	//move the player
 	//fowards and backwards
@@ -47,4 +61,10 @@ void handleInput(){
 	//side to side
 	playerPos[0] -= sin(playerRot[0]+PI/2)*circlePadPos.dx*playerSpeed;//*deltaTime;
 	playerPos[2] -= cos(playerRot[0]+PI/2)*circlePadPos.dx*playerSpeed;//*deltaTime;
+
+	//move the player up and down
+	if (kHeld & KEY_R)
+		playerPos[1] += playerSpeed*154;//*deltaTime;
+	if (kHeld & KEY_L)
+		playerPos[1] -= playerSpeed*154;//*deltaTime;
 }

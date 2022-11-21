@@ -1,5 +1,4 @@
-main.o: \
- /home/mackowaty/Desktop/projects/raycaster_engine_3ds/source/main.c \
+main.o: /home/mackowaty/Desktop/projects/3ds-3D-engine/source/main.c \
  /opt/devkitpro/libctru/include/3ds.h \
  /opt/devkitpro/libctru/include/3ds/types.h \
  /opt/devkitpro/libctru/include/3ds/result.h \
@@ -107,8 +106,8 @@ main.o: \
  /opt/devkitpro/libctru/include/c2d/sprite.h \
  /opt/devkitpro/libctru/include/c2d/text.h \
  /opt/devkitpro/libctru/include/c2d/font.h \
- /home/mackowaty/Desktop/projects/raycaster_engine_3ds/source/usefullPublicFunctions.h \
- /home/mackowaty/Desktop/projects/raycaster_engine_3ds/source/display.h
+ /home/mackowaty/Desktop/projects/3ds-3D-engine/source/usefullPublicFunctions.h \
+ /home/mackowaty/Desktop/projects/3ds-3D-engine/source/display.h
 /opt/devkitpro/libctru/include/3ds.h:
 /opt/devkitpro/libctru/include/3ds/types.h:
 /opt/devkitpro/libctru/include/3ds/result.h:
@@ -216,5 +215,5 @@ main.o: \
 /opt/devkitpro/libctru/include/c2d/sprite.h:
 /opt/devkitpro/libctru/include/c2d/text.h:
 /opt/devkitpro/libctru/include/c2d/font.h:
-/home/mackowaty/Desktop/projects/raycaster_engine_3ds/source/usefullPublicFunctions.h:
-/home/mackowaty/Desktop/projects/raycaster_engine_3ds/source/display.h:
+/home/mackowaty/Desktop/projects/3ds-3D-engine/source/usefullPublicFunctions.h:
+/home/mackowaty/Desktop/projects/3ds-3D-engine/source/display.h:
