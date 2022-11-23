@@ -5,33 +5,37 @@ C2D_TargetClear(right, clrClear);
 C2D_TargetClear(down, clrClear);
 #endif
 
+C2D_SceneBegin(left);
+
 //do this loop twice for the 3d display
-for (int i=0;i<2;i++){
-    if(i == 1){
+//for (int i=0;i<2;i++){
+    /*if(i == 1){
         C2D_SceneBegin(left);
     }
     else{
         C2D_SceneBegin(right);
-    }
-
-    //calculate the angle from the center of the screen to the vertex
+    }*/
+	//draw vertexes
+    //declaring usefull variables (they calculate the angle from the players view to vertexes)
     float angleToPoint[2];
 	float angleDifference[2];
+	float angleToPointBeggining[2];
+	float angleDifferenceBeggining[2];
     //do this for every vertex of the square
 	for(int i=0;i<LEN(vertecies);i++){
 		//calculate the angle to a vertecies verticy
-		if(vertecies[i][2]-playerPos[2]>=0){
-			angleToPoint[0] = atan((vertecies[i][0]-playerPos[0])/(vertecies[i][2]-playerPos[2]));
-		}
-		else{
-			angleToPoint[0] = atan((vertecies[i][0]-playerPos[0])/(vertecies[i][2]-playerPos[2]))+PI;
-		}
         if(vertecies[i][1]-playerPos[1]>=0){
             angleToPoint[1] = atan((sqrt(pow(vertecies[i][2]-playerPos[2],2)+pow(vertecies[i][0]-playerPos[0],2)))/(vertecies[i][1]-playerPos[1]));
         }
         else{
             angleToPoint[1] = atan((sqrt(pow(vertecies[i][2]-playerPos[2],2)+pow(vertecies[i][0]-playerPos[0],2)))/(vertecies[i][1]-playerPos[1]))+PI;
         }
+		if(vertecies[i][2]-playerPos[2]>=0){
+			angleToPoint[0] = atan((vertecies[i][0]-playerPos[0])/(vertecies[i][2]-playerPos[2]));
+		}
+		else{
+			angleToPoint[0] = atan((vertecies[i][0]-playerPos[0])/(vertecies[i][2]-playerPos[2]))+PI;
+		}
 
 		if(angleToPoint[0]>PI){
 			angleToPoint[0] -= 2*PI;
@@ -61,12 +65,104 @@ for (int i=0;i<2;i++){
 			angleDifference[1] += 2*PI;
 		}
 
-        C2D_DrawRectSolid(TOP_SCREEN_WIDTH/2 + (angleDifference[0])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*200,TOP_SCREEN_HEIGHT/2 + (angleDifference[1])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*200,0,POINT_SIZE,POINT_SIZE, vertexColor);
-		//C2D_DrawLine()
-		printf("\x1b[2;1H angleDifference x = %f\n y = %f",angleDifference[0],angleDifference[1]);
-		printf("\x1b[4;1H test test");
+        C2D_DrawRectSolid(TOP_SCREEN_WIDTH/2 + (angleDifference[0])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,TOP_SCREEN_HEIGHT/2 + (angleDifference[1])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,0,POINT_SIZE,POINT_SIZE, vertexColor);
 	}
-}
+
+	//draw the lines
+	printf("\x1b[1;1H");
+    //do this for every vertex of the square
+	for(int i=0;i<LEN(lines)-1;i++){
+		//calculate the angle tocalculate the angle from the center of the screen to the vertex a vertecies verticy
+		if(vertecies[lines[i][0]][1]-playerPos[1]>=0){
+			angleToPoint[1] = atan((sqrt(pow(vertecies[lines[i][0]][2]-playerPos[2],2)+pow(vertecies[lines[i][0]][0]-playerPos[0],2)))/(vertecies[lines[i][0]][1]-playerPos[1]));
+		}
+		else{
+			angleToPoint[1] = atan((sqrt(pow(vertecies[lines[i][0]][2]-playerPos[2],2)+pow(vertecies[lines[i][0]][0]-playerPos[0],2)))/(vertecies[lines[i][0]][1]-playerPos[1]))+PI;
+		}
+		if(vertecies[lines[i][0]][2]-playerPos[2]>=0){
+			angleToPoint[0] = atan((vertecies[lines[i][0]][0]-playerPos[0])/(vertecies[lines[i][0]][2]-playerPos[2]));
+		}
+		else{
+			angleToPoint[0] = atan((vertecies[lines[i][0]][0]-playerPos[0])/(vertecies[lines[i][0]][2]-playerPos[2]))+PI;
+		}
+
+		if(angleToPoint[0]>PI){
+			angleToPoint[0] -= 2*PI;
+		}
+		if(angleToPoint[0]<-PI){
+			angleToPoint[0] += 2*PI;
+		}
+		if(angleToPoint[1]>PI){
+			angleToPoint[1] -= 2*PI;
+		}
+		if(angleToPoint[1]<-PI){
+			angleToPoint[1] += 2*PI;
+		}
+		angleDifference[0] = playerRot[0]-angleToPoint[0];
+		if(angleDifference[0]>PI){
+			angleDifference[0] -= 2*PI;
+		}
+		if(angleDifference[0]<-PI){
+			angleDifference[0] += 2*PI;
+		}
+		angleDifference[1] = playerRot[1]-angleToPoint[1];
+		if(angleDifference[1]>PI){
+			angleDifference[1] -= 2*PI;
+		}
+		if(angleDifference[1]<-PI){
+			angleDifference[1] += 2*PI;
+		}
+
+		//calculate the angle to a vertecies verticy
+		if(vertecies[lines[i][1]][1]-playerPos[1]>=0){
+			angleToPointBeggining[1] = atan((sqrt(pow(vertecies[lines[i][1]][2]-playerPos[2],2)+pow(vertecies[lines[i][1]][0]-playerPos[0],2)))/(vertecies[lines[i][1]][1]-playerPos[1]));
+		}
+		else{
+			angleToPointBeggining[1] = atan((sqrt(pow(vertecies[lines[i][1]][2]-playerPos[2],2)+pow(vertecies[lines[i][1]][0]-playerPos[0],2)))/(vertecies[lines[i][1]][1]-playerPos[1]))+PI;
+		}
+		if(vertecies[lines[i][1]][2]-playerPos[2]>=0){
+			angleToPointBeggining[0] = atan((vertecies[lines[i][1]][0]-playerPos[0])/(vertecies[lines[i][1]][2]-playerPos[2]));
+		}
+		else{
+			angleToPointBeggining[0] = atan((vertecies[lines[i][1]][0]-playerPos[0])/(vertecies[lines[i][1]][2]-playerPos[2]))+PI;
+		}
+
+		if(angleToPointBeggining[0]>PI){
+			angleToPointBeggining[0] -= 2*PI;
+		}
+		if(angleToPointBeggining[0]<-PI){
+			angleToPointBeggining[0] += 2*PI;
+		}
+		if(angleToPointBeggining[1]>PI){
+			angleToPointBeggining[1] -= 2*PI;
+		}
+		if(angleToPointBeggining[1]<-PI){
+			angleToPointBeggining[1] += 2*PI;
+		}
+		angleDifferenceBeggining[0] = playerRot[0]-angleToPointBeggining[0];
+		if(angleDifferenceBeggining[0]>PI){
+			angleDifferenceBeggining[0] -= 2*PI;
+		}
+		if(angleDifferenceBeggining[0]<-PI){
+			angleDifferenceBeggining[0] += 2*PI;
+		}
+		angleDifferenceBeggining[1] = playerRot[1]-angleToPointBeggining[1];
+		if(angleDifferenceBeggining[1]>PI){
+			angleDifferenceBeggining[1] -= 2*PI;
+		}
+		if(angleDifferenceBeggining[1]<-PI){
+			angleDifferenceBeggining[1] += 2*PI;
+		}
+		//if(angleDifference[0] !> FOV/180*PI || angleDifference[1] !> FOV/180*PI){
+			C2D_DrawLine(
+			TOP_SCREEN_WIDTH /2 + (angleDifference[0])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,
+			TOP_SCREEN_HEIGHT/2 + (angleDifference[1])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,lineColor,
+			TOP_SCREEN_WIDTH /2 + (angleDifferenceBeggining[0])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,
+			TOP_SCREEN_HEIGHT/2 + (angleDifferenceBeggining[1])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,lineColor,
+			3,0);
+		//}
+	}
+//}
 
 #ifndef DEBUG_MODE
 C2D_SceneBegin(down);

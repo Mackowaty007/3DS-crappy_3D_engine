@@ -14,11 +14,13 @@
 #define BOT_SCREEN_HEIGHT 240
 #define POINT_SIZE 4
 #define PI 3.1415926535
+//smaller number - more FOV
+#define FOV 200
 
 #define DEBUG_MODE//shows the console
 
-float playerPos[3] = {10,30,10};
-float playerRot[2] = {0,0};
+float playerPos[3] = {0,0,0};
+float playerRot[2] = {0,PI/2};
 float playerSpeed = 0.01;
 float rotSpeed = 0.1;
 
@@ -59,6 +61,7 @@ int main(int argc, char* argv[]) {
 	u32 clrClear   = C2D_Color32(0x0F, 0x00, 0x0F, 0xFF);
     u32 vertexColor= C2D_Color32(0xF0, 0x1F, 0x0F, 0xFF);
 	u32 playerColor= C2D_Color32(0xDE, 0xAD, 0xBE, 0xFF);
+	u32 lineColor  = C2D_Color32(0x0F, 0XFA, 0x1A, 0xFF);
 
 	// Main loop
 	while (aptMainLoop())
@@ -70,8 +73,8 @@ int main(int argc, char* argv[]) {
 		handleInput();
 
 		#include "display.h"
-}
+	}
 
 	exitTheGame();
 	return 0;
-} 
+}
