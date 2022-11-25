@@ -106,6 +106,7 @@ main.o: /home/mackowaty/Desktop/projects/3ds-3D-engine/source/main.c \
  /opt/devkitpro/libctru/include/c2d/sprite.h \
  /opt/devkitpro/libctru/include/c2d/text.h \
  /opt/devkitpro/libctru/include/c2d/font.h \
+ /home/mackowaty/Desktop/projects/3ds-3D-engine/source/shape.h \
  /home/mackowaty/Desktop/projects/3ds-3D-engine/source/usefullPublicFunctions.h \
  /home/mackowaty/Desktop/projects/3ds-3D-engine/source/display.h
 /opt/devkitpro/libctru/include/3ds.h:
@@ -215,5 +216,6 @@ main.o: /home/mackowaty/Desktop/projects/3ds-3D-engine/source/main.c \
 /opt/devkitpro/libctru/include/c2d/sprite.h:
 /opt/devkitpro/libctru/include/c2d/text.h:
 /opt/devkitpro/libctru/include/c2d/font.h:
+/home/mackowaty/Desktop/projects/3ds-3D-engine/source/shape.h:
 /home/mackowaty/Desktop/projects/3ds-3D-engine/source/usefullPublicFunctions.h:
 /home/mackowaty/Desktop/projects/3ds-3D-engine/source/display.h:

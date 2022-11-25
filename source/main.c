@@ -12,24 +12,25 @@
 #define TOP_SCREEN_HEIGHT 240
 #define BOT_SCREEN_WIDTH  320
 #define BOT_SCREEN_HEIGHT 240
-#define POINT_SIZE 4
+#define POINT_SIZE 0
 #define PI 3.1415926535
 //smaller number - more FOV
 #define FOV 200
 
-#define DEBUG_MODE//shows the console
+//#define DEBUG_MODE//shows the console
 
 float playerPos[3] = {0,0,0};
 float playerRot[2] = {0,PI/2};
 float playerSpeed = 0.01;
 float rotSpeed = 0.1;
 
+#include "shape.h"
 //point positions
-float vertecies[8][3] = {{-10,-10,-10},{-10,-10,10},{-10,10,-10},{-10,10,10},{10,-10,-10},{10,-10,10},{10,10,-10},{10,10,10}};
+//float vertecies[8][3] = {{-10,-10,-10},{-10,-10,10},{-10,10,-10},{-10,10,10},{10,-10,-10},{10,-10,10},{10,10,-10},{10,10,10}};
 //order in which you should connect the points to make lines
-int lines[13][2] = {{6,2},{2,0},{6,4},{4,0},{2,3},{0,1},{3,1},{3,7},{1,5},{7,5},{7,6},{5,4},{2,4}};
+//int lines[13][2] = {{6,2},{2,0},{6,4},{4,0},{2,3},{0,1},{3,1},{3,7},{1,5},{7,5},{7,6},{5,4},{2,4}};
 //order in which you should connect the points to make triangles
-int polygons[8][3] = {{6,0,4},{6,2,0},{2,1,0},{2,3,1},{3,5,1},{3,7,5},{7,6,4},{7,4,5}};
+//int polygons[8][3] = {{6,0,4},{6,2,0},{2,1,0},{2,3,1},{3,5,1},{3,7,5},{7,6,4},{7,4,5}};
 
 struct timeval begin, end;
 double deltaTime;
@@ -56,6 +57,9 @@ int main(int argc, char* argv[]) {
 	#endif
 
 	gfxSet3D(true);
+	setTheObjectScale();
+
+	//printf("index = %i coordinates = %i",LEN(vertecies),LEN(vertecies[0]));
 
 	// Create colors
 	u32 clrClear   = C2D_Color32(0x0F, 0x00, 0x0F, 0xFF);

@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-char headerFileString[] = "#pragma once\n\nfloat vertecies[8][3] = \n\nint lines[13][2] = \n\nint polygons[8][3] = \n";
+#include <ctype.h>
 
 int main()
 {
@@ -10,34 +9,105 @@ int main()
 	FILE* outputFile;
 	char ch;
 	char ignoreThisLine = 'F';
-
-	fputs(headerFileString, outputFile);
+	char printLineBeggining = 'T';
+	char skipUntilNextSpaceBar = 'F';
+	int  vertecieCounter = 0;
 
 	// Opening file in reading mode
-	inputFile = fopen("simpleShape.obj", "r");
+	inputFile = fopen("monkey.obj", "r");
 	// Create a file to be used as output
 	outputFile = fopen ("shape.h", "w");
 
 	if (NULL == inputFile) {
 		printf("file can't be opened \n");
 	}
-  
+
+	fputs("#pragma once\n\n", outputFile);
+	fputs("float vertecies[][3] = {\n",outputFile);
+
+	
 	do {
 		ch = fgetc(inputFile);
 
-		if (ch == '#'){
-			//this line is a comment
+		//check if this line is a comment or a useless element
+		if (ch == '#' || ch == 'o' || ch == 'n' || ch == 't'){
 			ignoreThisLine = 'T';
 		}
+		
+		//start a new line
 		if (ch == '\n'){
 			ignoreThisLine = 'F';
 		}
-		
+
+		//put the good stuff in the file
 		if(ignoreThisLine == 'F'){
-			printf("%c",ch);
-			putc(ch, outputFile);
+			if(ch == 'v'){
+				//skips the first space bar
+				ch = fgetc(inputFile);
+				if(ch == 'n' || ch == 't'){
+					goto skip;
+				}
+				ch = fgetc(inputFile);
+
+				fputc('{',outputFile);
+
+				//write stuff until end of the line
+				while(ch != '\n'){
+					fputc(ch, outputFile);
+					ch = fgetc(inputFile);
+					if (ch == ' '){
+						ch = ',';
+					}
+				}
+
+				fputs("},\n",outputFile);
+			}
+			if(ch == 'f'){
+				if(printLineBeggining == 'T'){
+					printLineBeggining = 'F';
+					fputs("};",outputFile);
+					fputs("\n\nint polygons[][4] = {\n",outputFile);
+				}
+
+				//skips the first space bar
+				ch = fgetc(inputFile);
+				ch = fgetc(inputFile);
+
+				fputc('{',outputFile);
+
+				//write stuff until end of the line
+				while(ch != '\n'){
+					if(skipUntilNextSpaceBar != 'T'){
+						fputc(ch, outputFile);
+					}
+
+					ch = fgetc(inputFile);
+
+					if (ch == ' ' || ch == '\n'){
+						skipUntilNextSpaceBar = 'F';
+					}
+					if (ch == ' '){
+						ch = ',';
+						vertecieCounter ++;
+					}
+					if (ch == '/'){
+						skipUntilNextSpaceBar = 'T';
+					}
+				}
+				if (vertecieCounter > 4){
+					printf("you have a model with too many vertecies per polygon!\n");
+				}
+				else if (vertecieCounter == 2){
+					fputs(",-1",outputFile);
+				}
+				vertecieCounter = 0;
+				fputs("},\n",outputFile);
+			}
+			skip:
 		}
-	} while (ch != EOF);
+	}while (ch != EOF);
+
+	fputs("};",outputFile);
 
 	// Closing the file
 	fclose(inputFile);

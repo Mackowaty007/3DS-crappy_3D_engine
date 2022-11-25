@@ -7,6 +7,14 @@ void exitTheGame(){
 	gfxExit();
 }
 
+void setTheObjectScale(){
+	for (int i=0;i<LEN(vertecies);i++){
+		for (int c=0;c<LEN(vertecies[0]);c++){
+			vertecies[i][c] *= -20;
+		}
+	}
+}
+
 float cutANumber(float number,float max,float min){
 	if (number>max){
 		number=max;
