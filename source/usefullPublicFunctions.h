@@ -10,7 +10,16 @@ void exitTheGame(){
 void setTheObjectScale(){
 	for (int i=0;i<LEN(vertecies);i++){
 		for (int c=0;c<LEN(vertecies[0]);c++){
-			vertecies[i][c] *= -20;
+			vertecies[i][c] *= -50;
+		}
+	}
+}
+
+//should have done this in the converter file but text operations are hard
+void decrementAllTheVerteciesValuesByOne(){
+	for (int i=0;i<LEN(polygons);i++){
+		for (int c=0;c<LEN(polygons[0]);c++){
+			polygons[i][c] --;
 		}
 	}
 }
@@ -38,13 +47,13 @@ void handleInput(){
 	}
 
 	//rotate the player
-	if (kHeld & KEY_A)
+	if (kHeld & KEY_A || kHeld & KEY_CSTICK_RIGHT)
 		playerRot[0] -= rotSpeed;//*deltaTime;
-	if (kHeld & KEY_Y)
+	if (kHeld & KEY_Y || kHeld & KEY_CSTICK_LEFT)
 		playerRot[0] += rotSpeed;//*deltaTime;
-	if (kHeld & KEY_X)
+	if (kHeld & KEY_X || kHeld & KEY_CSTICK_UP)
 		playerRot[1] += rotSpeed;//*deltaTime;
-	if (kHeld & KEY_B)
+	if (kHeld & KEY_B || kHeld & KEY_CSTICK_DOWN)
 		playerRot[1] -= rotSpeed;//*deltaTime;
 
 	playerRot[1] = cutANumber(playerRot[1],PI,0);
@@ -72,7 +81,7 @@ void handleInput(){
 
 	//move the player up and down
 	if (kHeld & KEY_R)
-		playerPos[1] += playerSpeed*154;//*deltaTime;
-	if (kHeld & KEY_L)
 		playerPos[1] -= playerSpeed*154;//*deltaTime;
+	if (kHeld & KEY_L)
+		playerPos[1] += playerSpeed*154;//*deltaTime;
 }

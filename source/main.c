@@ -12,25 +12,24 @@
 #define TOP_SCREEN_HEIGHT 240
 #define BOT_SCREEN_WIDTH  320
 #define BOT_SCREEN_HEIGHT 240
-#define POINT_SIZE 0
+#define POINT_SIZE 3
+#define LINE_WIDTH 0.6
 #define PI 3.1415926535
 //smaller number - more FOV
 #define FOV 200
 
-//#define DEBUG_MODE//shows the console
+#define DEBUG_MODE//shows the console
+//#define DRAW_VERTECIES
+//#define DRAW_LINES
+#define DRAW_FACES
 
 float playerPos[3] = {0,0,0};
+float cameraPos[3] = {0,0,0};
 float playerRot[2] = {0,PI/2};
 float playerSpeed = 0.01;
 float rotSpeed = 0.1;
 
 #include "shape.h"
-//point positions
-//float vertecies[8][3] = {{-10,-10,-10},{-10,-10,10},{-10,10,-10},{-10,10,10},{10,-10,-10},{10,-10,10},{10,10,-10},{10,10,10}};
-//order in which you should connect the points to make lines
-//int lines[13][2] = {{6,2},{2,0},{6,4},{4,0},{2,3},{0,1},{3,1},{3,7},{1,5},{7,5},{7,6},{5,4},{2,4}};
-//order in which you should connect the points to make triangles
-//int polygons[8][3] = {{6,0,4},{6,2,0},{2,1,0},{2,3,1},{3,5,1},{3,7,5},{7,6,4},{7,4,5}};
 
 struct timeval begin, end;
 double deltaTime;
@@ -43,7 +42,7 @@ int main(int argc, char* argv[]) {
 	// Init libs
 	gfxInitDefault();
 	C3D_Init(C3D_DEFAULT_CMDBUF_SIZE);
-	C2D_Init(C2D_DEFAULT_MAX_OBJECTS);
+	C2D_Init(LEN(polygons)*4*2);
 	C2D_Prepare();
 	#ifdef DEBUG_MODE
 	consoleInit(GFX_BOTTOM, NULL);
@@ -58,14 +57,14 @@ int main(int argc, char* argv[]) {
 
 	gfxSet3D(true);
 	setTheObjectScale();
-
-	//printf("index = %i coordinates = %i",LEN(vertecies),LEN(vertecies[0]));
+	decrementAllTheVerteciesValuesByOne();
 
 	// Create colors
 	u32 clrClear   = C2D_Color32(0x0F, 0x00, 0x0F, 0xFF);
     u32 vertexColor= C2D_Color32(0xF0, 0x1F, 0x0F, 0xFF);
 	u32 playerColor= C2D_Color32(0xDE, 0xAD, 0xBE, 0xFF);
 	u32 lineColor  = C2D_Color32(0x0F, 0XFA, 0x1A, 0xFF);
+	u32 polygonColor=C2D_Color32(0x0F, 0X3A, 0xFA, 0xFF);
 
 	// Main loop
 	while (aptMainLoop())

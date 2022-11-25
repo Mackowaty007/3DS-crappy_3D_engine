@@ -41,6 +41,7 @@ int main()
 
 		//put the good stuff in the file
 		if(ignoreThisLine == 'F'){
+			//vertecies
 			if(ch == 'v'){
 				//skips the first space bar
 				ch = fgetc(inputFile);
@@ -62,6 +63,7 @@ int main()
 
 				fputs("},\n",outputFile);
 			}
+			//faces
 			if(ch == 'f'){
 				if(printLineBeggining == 'T'){
 					printLineBeggining = 'F';
@@ -77,7 +79,7 @@ int main()
 
 				//write stuff until end of the line
 				while(ch != '\n'){
-					if(skipUntilNextSpaceBar != 'T'){
+					if(skipUntilNextSpaceBar == 'F'){
 						fputc(ch, outputFile);
 					}
 
@@ -87,18 +89,21 @@ int main()
 						skipUntilNextSpaceBar = 'F';
 					}
 					if (ch == ' '){
-						ch = ',';
+						putc(',',outputFile);
+						ch = fgetc(inputFile);
 						vertecieCounter ++;
 					}
 					if (ch == '/'){
 						skipUntilNextSpaceBar = 'T';
 					}
 				}
-				if (vertecieCounter > 4){
+				//if there are too many vertecies per polygon
+				if (vertecieCounter > 3){
 					printf("you have a model with too many vertecies per polygon!\n");
 				}
+				//if your model has too little vertecies set their value to NULL = (-1)
 				else if (vertecieCounter == 2){
-					fputs(",-1",outputFile);
+					fputs(",0",outputFile);
 				}
 				vertecieCounter = 0;
 				fputs("},\n",outputFile);
