@@ -19,11 +19,12 @@
 #define FOV 200
 
 #define DEBUG_MODE//shows the console
+#define DISSABLE_THE_3D_MODE
 //#define DRAW_VERTECIES
 //#define DRAW_LINES
 #define DRAW_FACES
 
-float playerPos[3] = {0,0,0};
+float playerPos[3] = {0,0,-100};
 float cameraPos[3] = {0,0,0};
 float playerRot[2] = {0,PI/2};
 float playerSpeed = 0.01;
@@ -60,7 +61,7 @@ int main(int argc, char* argv[]) {
 	decrementAllTheVerteciesValuesByOne();
 
 	// Create colors
-	u32 clrClear   = C2D_Color32(0x0F, 0x00, 0x0F, 0xFF);
+	u32 clrClear   = C2D_Color32(0x1F, 0x10, 0x0F, 0xFF);
     u32 vertexColor= C2D_Color32(0xF0, 0x1F, 0x0F, 0xFF);
 	u32 playerColor= C2D_Color32(0xDE, 0xAD, 0xBE, 0xFF);
 	u32 lineColor  = C2D_Color32(0x0F, 0XFA, 0x1A, 0xFF);
@@ -76,6 +77,11 @@ int main(int argc, char* argv[]) {
 		handleInput();
 
 		#include "display.h"
+
+		//get performance data
+		printf("\x1b[22;1HCPU:     %6.2f%%\x1b[K", C3D_GetProcessingTime()*6.0f);
+		printf("\x1b[23;1HGPU:     %6.2f%%\x1b[K", C3D_GetDrawingTime()*6.0f);
+		printf("\x1b[24;1HCmdBuf:  %6.2f%%\x1b[K", C3D_GetCmdBufUsage()*100.0f);
 	}
 
 	exitTheGame();

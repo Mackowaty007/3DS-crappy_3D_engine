@@ -10,7 +10,7 @@ void exitTheGame(){
 void setTheObjectScale(){
 	for (int i=0;i<LEN(vertecies);i++){
 		for (int c=0;c<LEN(vertecies[0]);c++){
-			vertecies[i][c] *= -50;
+			vertecies[i][c] *= -100;
 		}
 	}
 }
