@@ -17,6 +17,7 @@
 #define PI 3.1415926535
 //smaller number - more FOV
 #define FOV 200
+#define DRAWING_DISTANCE 500
 
 #define DEBUG_MODE//shows the console
 #define DISSABLE_THE_3D_MODE

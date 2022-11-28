@@ -52,10 +52,6 @@ for (int whichDisplay=0;whichDisplay<2;whichDisplay++){
 	//calculate all the angles
     //do this for every vertex of the square
 	for(int i=0;i<LEN(polygons);i++){
-
-		//fun with colors
-		polygonColor = C2D_Color32f(i/(float)LEN(polygons),0,0,1.0);
-
 		//calculate the angle tocalculate the angle from the center of the screen to the vertex a vertecies verticy
 		if(vertecies[polygons[i][0]][1]-cameraPos[1]>=0){
 			angleToPointA[1] = atan((sqrt(pow(vertecies[polygons[i][0]][2]-cameraPos[2],2)+pow(vertecies[polygons[i][0]][0]-cameraPos[0],2)))/(vertecies[polygons[i][0]][1]-cameraPos[1]));
@@ -237,6 +233,10 @@ for (int whichDisplay=0;whichDisplay<2;whichDisplay++){
 			//check the distance to a polygon
 			float distanceToPolygon = -sqrt(pow(cameraPos[0]-vertecies[polygons[i][0]][0],2) + pow(cameraPos[1]-vertecies[polygons[i][0]][1],2) + pow(cameraPos[2]-vertecies[polygons[i][0]][2],2));
 
+			//fun with colors
+			//polygonColor = C2D_Color32f(i/(float)LEN(polygons),0,0,1.0);
+			polygonColor = C2D_Color32f(1+distanceToPolygon/DRAWING_DISTANCE,1+distanceToPolygon/DRAWING_DISTANCE,1+distanceToPolygon/DRAWING_DISTANCE,1);
+
 			//printf("distance to the polygon = %f\n",distanceToPolygon);
 
 			C2D_DrawTriangle(
@@ -245,7 +245,7 @@ for (int whichDisplay=0;whichDisplay<2;whichDisplay++){
 				TOP_SCREEN_WIDTH /2 + (angleDifferenceB[0])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,
 				TOP_SCREEN_HEIGHT/2 + (angleDifferenceB[1])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,polygonColor,
 				TOP_SCREEN_WIDTH /2 + (angleDifferenceC[0])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,
-				TOP_SCREEN_HEIGHT/2 + (angleDifferenceC[1])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,polygonColor,distanceToPolygon/1000
+				TOP_SCREEN_HEIGHT/2 + (angleDifferenceC[1])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,polygonColor,distanceToPolygon/DRAWING_DISTANCE
 			);
 			//if the polygon has 4 sides draw another triangle
 			if (polygons[i][3] != -1){
@@ -255,7 +255,7 @@ for (int whichDisplay=0;whichDisplay<2;whichDisplay++){
 					TOP_SCREEN_WIDTH /2 + (angleDifferenceD[0])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,
 					TOP_SCREEN_HEIGHT/2 + (angleDifferenceD[1])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,polygonColor,
 					TOP_SCREEN_WIDTH /2 + (angleDifferenceC[0])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,
-					TOP_SCREEN_HEIGHT/2 + (angleDifferenceC[1])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,polygonColor,distanceToPolygon/1000
+					TOP_SCREEN_HEIGHT/2 + (angleDifferenceC[1])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,polygonColor,distanceToPolygon/DRAWING_DISTANCE
 				);
 			}
 		}
