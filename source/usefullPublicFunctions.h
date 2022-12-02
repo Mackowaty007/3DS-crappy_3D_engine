@@ -67,7 +67,7 @@ void handleInput(){
 	if(playerRot[1]>PI){
 		playerRot[1] -= 2*PI;
 	}
-	if(playerRot[1]<-PI){
+	if(playerRot[1]<0){
 		playerRot[1] += 2*PI;
 	}
 

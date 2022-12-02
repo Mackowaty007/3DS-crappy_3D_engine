@@ -39,190 +39,68 @@ for (int whichDisplay=0;whichDisplay<2;whichDisplay++){
 
 	//draw vertexes
     //declaring usefull variables (they calculate the angle from the players view to vertexes)
-    float angleToPointA[2];
-	float angleDifferenceA[2];
-	float angleToPointB[2];
-	float angleDifferenceB[2];
-	float angleToPointC[2];
-	float angleDifferenceC[2];
-	float angleToPointD[2];
-	float angleDifferenceD[2];
+    float angleToPoint[4][2];
+	float angleDifference[4][2];
     //do this for every vertex of the square
 
 	//calculate all the angles
     //do this for every vertex of the square
 	for(int i=0;i<LEN(polygons);i++){
-		//calculate the angle tocalculate the angle from the center of the screen to the vertex a vertecies verticy
-		if(vertecies[polygons[i][0]][1]-cameraPos[1]>=0){
-			angleToPointA[1] = atan((sqrt(pow(vertecies[polygons[i][0]][2]-cameraPos[2],2)+pow(vertecies[polygons[i][0]][0]-cameraPos[0],2)))/(vertecies[polygons[i][0]][1]-cameraPos[1]));
-		}
-		else{
-			angleToPointA[1] = atan((sqrt(pow(vertecies[polygons[i][0]][2]-cameraPos[2],2)+pow(vertecies[polygons[i][0]][0]-cameraPos[0],2)))/(vertecies[polygons[i][0]][1]-cameraPos[1]))+PI;
-		}
-		if(vertecies[polygons[i][0]][2]-cameraPos[2]>=0){
-			angleToPointA[0] = atan((vertecies[polygons[i][0]][0]-cameraPos[0])/(vertecies[polygons[i][0]][2]-cameraPos[2]));
-		}
-		else{
-			angleToPointA[0] = atan((vertecies[polygons[i][0]][0]-cameraPos[0])/(vertecies[polygons[i][0]][2]-cameraPos[2]))+PI;
-		}
-
-		if(angleToPointA[0]>PI){
-			angleToPointA[0] -= 2*PI;
-		}
-		if(angleToPointA[0]<-PI){
-			angleToPointA[0] += 2*PI;
-		}
-		if(angleToPointA[1]>PI){
-			angleToPointA[1] -= 2*PI;
-		}
-		if(angleToPointA[1]<-PI){
-			angleToPointA[1] += 2*PI;
-		}
-		angleDifferenceA[0] = playerRot[0]-angleToPointA[0];
-		if(angleDifferenceA[0]>PI){
-			angleDifferenceA[0] -= 2*PI;
-		}
-		if(angleDifferenceA[0]<-PI){
-			angleDifferenceA[0] += 2*PI;
-		}
-		angleDifferenceA[1] = playerRot[1]-angleToPointA[1];
-		if(angleDifferenceA[1]>PI){
-			angleDifferenceA[1] -= 2*PI;
-		}
-		if(angleDifferenceA[1]<-PI){
-			angleDifferenceA[1] += 2*PI;
-		}
-
-		//calculate the angle to a vertecies verticy
-		if(vertecies[polygons[i][1]][1]-cameraPos[1]>=0){
-			angleToPointB[1] = atan((sqrt(pow(vertecies[polygons[i][1]][2]-cameraPos[2],2)+pow(vertecies[polygons[i][1]][0]-cameraPos[0],2)))/(vertecies[polygons[i][1]][1]-cameraPos[1]));
-		}
-		else{
-			angleToPointB[1] = atan((sqrt(pow(vertecies[polygons[i][1]][2]-cameraPos[2],2)+pow(vertecies[polygons[i][1]][0]-cameraPos[0],2)))/(vertecies[polygons[i][1]][1]-cameraPos[1]))+PI;
-		}
-		if(vertecies[polygons[i][1]][2]-cameraPos[2]>=0){
-			angleToPointB[0] = atan((vertecies[polygons[i][1]][0]-cameraPos[0])/(vertecies[polygons[i][1]][2]-cameraPos[2]));
-		}
-		else{
-			angleToPointB[0] = atan((vertecies[polygons[i][1]][0]-cameraPos[0])/(vertecies[polygons[i][1]][2]-cameraPos[2]))+PI;
-		}
-
-		if(angleToPointB[0]>PI){
-			angleToPointB[0] -= 2*PI;
-		}
-		if(angleToPointB[0]<-PI){
-			angleToPointB[0] += 2*PI;
-		}
-		if(angleToPointB[1]>PI){
-			angleToPointB[1] -= 2*PI;
-		}
-		if(angleToPointB[1]<-PI){
-			angleToPointB[1] += 2*PI;
-		}
-		angleDifferenceB[0] = playerRot[0]-angleToPointB[0];
-		if(angleDifferenceB[0]>PI){
-			angleDifferenceB[0] -= 2*PI;
-		}
-		if(angleDifferenceB[0]<-PI){
-			angleDifferenceB[0] += 2*PI;
-		}
-		angleDifferenceB[1] = playerRot[1]-angleToPointB[1];
-		if(angleDifferenceB[1]>PI){
-			angleDifferenceB[1] -= 2*PI;
-		}
-		if(angleDifferenceB[1]<-PI){
-			angleDifferenceB[1] += 2*PI;
-		}
-
-		//calculate the angle tocalculate the angle from the center of the screen to the vertex a vertecies verticy
-		if(vertecies[polygons[i][2]][1]-cameraPos[1]>=0){
-			angleToPointC[1] = atan((sqrt(pow(vertecies[polygons[i][2]][2]-cameraPos[2],2)+pow(vertecies[polygons[i][2]][0]-cameraPos[0],2)))/(vertecies[polygons[i][2]][1]-cameraPos[1]));
-		}
-		else{
-			angleToPointC[1] = atan((sqrt(pow(vertecies[polygons[i][2]][2]-cameraPos[2],2)+pow(vertecies[polygons[i][2]][0]-cameraPos[0],2)))/(vertecies[polygons[i][2]][1]-cameraPos[1]))+PI;
-		}
-		if(vertecies[polygons[i][2]][2]-cameraPos[2]>=0){
-			angleToPointC[0] = atan((vertecies[polygons[i][2]][0]-cameraPos[0])/(vertecies[polygons[i][2]][2]-cameraPos[2]));
-		}
-		else{
-			angleToPointC[0] = atan((vertecies[polygons[i][2]][0]-cameraPos[0])/(vertecies[polygons[i][2]][2]-cameraPos[2]))+PI;
-		}
-
-		if(angleToPointC[0]>PI){
-			angleToPointC[0] -= 2*PI;
-		}
-		if(angleToPointC[0]<-PI){
-			angleToPointC[0] += 2*PI;
-		}
-		if(angleToPointC[1]>PI){
-			angleToPointC[1] -= 2*PI;
-		}
-		if(angleToPointC[1]<-PI){
-			angleToPointC[1] += 2*PI;
-		}
-		angleDifferenceC[0] = playerRot[0]-angleToPointC[0];
-		if(angleDifferenceC[0]>PI){
-			angleDifferenceC[0] -= 2*PI;
-		}
-		if(angleDifferenceC[0]<-PI){
-			angleDifferenceC[0] += 2*PI;
-		}
-		angleDifferenceC[1] = playerRot[1]-angleToPointC[1];
-		if(angleDifferenceC[1]>PI){
-			angleDifferenceC[1] -= 2*PI;
-		}
-		if(angleDifferenceC[1]<-PI){
-			angleDifferenceC[1] += 2*PI;
-		}
-
-		//if the current face has 4 points do this
+		unsigned int currentVertecie;
+		unsigned short int howManyPoinstToCalculate = 3;
+		//check if you should calculate 4 or 3 vertecies
 		if (polygons[i][3] != -1){
-			if(polygons[i][3] < 0)
-			printf("%i\n",polygons[i][3]);
-			if(vertecies[polygons[i][3]][1]-cameraPos[1]>=0){
-				angleToPointD[1] = atan((sqrt(pow(vertecies[polygons[i][3]][2]-cameraPos[2],2)+pow(vertecies[polygons[i][3]][0]-cameraPos[0],2)))/(vertecies[polygons[i][3]][1]-cameraPos[1]));
+			howManyPoinstToCalculate = 4;
+		}
+		else{
+			howManyPoinstToCalculate = 3;
+		}
+		//calculate the angle tocalculate the angle from the center of the screen to the vertex a vertecies verticy
+		for(currentVertecie=0;currentVertecie<howManyPoinstToCalculate;currentVertecie++){
+			if(vertecies[polygons[i][currentVertecie]][1]-cameraPos[1]>=0){
+				angleToPoint[currentVertecie][1] = atan((sqrt(pow(vertecies[polygons[i][currentVertecie]][2]-cameraPos[2],2)+pow(vertecies[polygons[i][currentVertecie]][0]-cameraPos[0],2)))/(vertecies[polygons[i][currentVertecie]][1]-cameraPos[1]));
 			}
 			else{
-				angleToPointD[1] = atan((sqrt(pow(vertecies[polygons[i][3]][2]-cameraPos[2],2)+pow(vertecies[polygons[i][3]][0]-cameraPos[0],2)))/(vertecies[polygons[i][3]][1]-cameraPos[1]))+PI;
+				angleToPoint[currentVertecie][1] = atan((sqrt(pow(vertecies[polygons[i][currentVertecie]][2]-cameraPos[2],2)+pow(vertecies[polygons[i][currentVertecie]][0]-cameraPos[0],2)))/(vertecies[polygons[i][currentVertecie]][1]-cameraPos[1]))+PI;
 			}
-			if(vertecies[polygons[i][3]][2]-cameraPos[2]>=0){
-				angleToPointD[0] = atan((vertecies[polygons[i][3]][0]-cameraPos[0])/(vertecies[polygons[i][3]][2]-cameraPos[2]));
+			if(vertecies[polygons[i][currentVertecie]][2]-cameraPos[2]>=0){
+				angleToPoint[currentVertecie][0] = atan((vertecies[polygons[i][currentVertecie]][0]-cameraPos[0])/(vertecies[polygons[i][currentVertecie]][2]-cameraPos[2]));
 			}
 			else{
-				angleToPointD[0] = atan((vertecies[polygons[i][3]][0]-cameraPos[0])/(vertecies[polygons[i][3]][2]-cameraPos[2]))+PI;
+				angleToPoint[currentVertecie][0] = atan((vertecies[polygons[i][currentVertecie]][0]-cameraPos[0])/(vertecies[polygons[i][currentVertecie]][2]-cameraPos[2]))+PI;
 			}
 
-			if(angleToPointD[0]>PI){
-				angleToPointD[0] -= 2*PI;
+			if(angleToPoint[currentVertecie][0]>PI){
+				angleToPoint[currentVertecie][0] -= 2*PI;
 			}
-			if(angleToPointD[0]<-PI){
-				angleToPointD[0] += 2*PI;
+			if(angleToPoint[currentVertecie][0]<-PI){
+				angleToPoint[currentVertecie][0] += 2*PI;
 			}
-			if(angleToPointD[1]>PI){
-				angleToPointD[1] -= 2*PI;
+			if(angleToPoint[currentVertecie][1]>PI){
+				angleToPoint[currentVertecie][1] -= 2*PI;
 			}
-			if(angleToPointD[1]<-PI){
-				angleToPointD[1] += 2*PI;
+			if(angleToPoint[currentVertecie][1]<-PI){
+				angleToPoint[currentVertecie][1] += 2*PI;
 			}
-			angleDifferenceD[0] = playerRot[0]-angleToPointD[0];
-			if(angleDifferenceD[0]>PI){
-				angleDifferenceD[0] -= 2*PI;
+			angleDifference[currentVertecie][0] = playerRot[0]-angleToPoint[currentVertecie][0];
+			if(angleDifference[currentVertecie][0]>PI){
+				angleDifference[currentVertecie][0] -= 2*PI;
 			}
-			if(angleDifferenceD[0]<-PI){
-				angleDifferenceD[0] += 2*PI;
+			if(angleDifference[currentVertecie][0]<-PI){
+				angleDifference[currentVertecie][0] += 2*PI;
 			}
-			angleDifferenceD[1] = playerRot[1]-angleToPointD[1];
-			if(angleDifferenceD[1]>PI){
-				angleDifferenceD[1] -= 2*PI;
+			angleDifference[currentVertecie][1] = playerRot[1]-angleToPoint[currentVertecie][1];
+			if(angleDifference[currentVertecie][1]>PI){
+				angleDifference[currentVertecie][1] -= 2*PI;
 			}
-			if(angleDifferenceD[1]<-PI){
-				angleDifferenceD[1] += 2*PI;
+			if(angleDifference[currentVertecie][1]<-PI){
+				angleDifference[currentVertecie][1] += 2*PI;
 			}
 		}
 
 		#ifdef DRAW_FACES
 		//check if the face should be culled or not
-		double result = atan2(angleDifferenceC[1] - angleDifferenceA[1], angleDifferenceC[0] - angleDifferenceA[0]) - atan2(angleDifferenceB[1] - angleDifferenceA[1], angleDifferenceB[0] - angleDifferenceA[0]);
+		double result = atan2(angleDifference[2][1] - angleDifference[0][1], angleDifference[2][0] - angleDifference[0][0]) - atan2(angleDifference[1][1] - angleDifference[0][1], angleDifference[1][0] - angleDifference[0][0]);
 
 		//makes it impossible for the result to be negative
 		if (result < 0){
@@ -231,31 +109,29 @@ for (int whichDisplay=0;whichDisplay<2;whichDisplay++){
 
 		if(result < 0 || result > PI){
 			//check the distance to a polygon
-			float distanceToPolygon = -sqrt(pow(cameraPos[0]-vertecies[polygons[i][0]][0],2) + pow(cameraPos[1]-vertecies[polygons[i][0]][1],2) + pow(cameraPos[2]-vertecies[polygons[i][0]][2],2));
+			float distanceToPolygon = -sqrt(pow(cameraPos[0]-vertecies[polygons[i][currentVertecie]][0],2) + pow(cameraPos[1]-vertecies[polygons[i][currentVertecie]][1],2) + pow(cameraPos[2]-vertecies[polygons[i][currentVertecie]][2],2));
 
 			//fun with colors
 			//polygonColor = C2D_Color32f(i/(float)LEN(polygons),0,0,1.0);
 			polygonColor = C2D_Color32f(1+distanceToPolygon/DRAWING_DISTANCE,1+distanceToPolygon/DRAWING_DISTANCE,1+distanceToPolygon/DRAWING_DISTANCE,1);
 
-			//printf("distance to the polygon = %f\n",distanceToPolygon);
-
 			C2D_DrawTriangle(
-				TOP_SCREEN_WIDTH /2 + (angleDifferenceA[0])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,
-				TOP_SCREEN_HEIGHT/2 + (angleDifferenceA[1])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,polygonColor,
-				TOP_SCREEN_WIDTH /2 + (angleDifferenceB[0])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,
-				TOP_SCREEN_HEIGHT/2 + (angleDifferenceB[1])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,polygonColor,
-				TOP_SCREEN_WIDTH /2 + (angleDifferenceC[0])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,
-				TOP_SCREEN_HEIGHT/2 + (angleDifferenceC[1])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,polygonColor,distanceToPolygon/DRAWING_DISTANCE
+				TOP_SCREEN_WIDTH /2 + (angleDifference[0][0])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,
+				TOP_SCREEN_HEIGHT/2 + (angleDifference[0][1])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,polygonColor,
+				TOP_SCREEN_WIDTH /2 + (angleDifference[1][0])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,
+				TOP_SCREEN_HEIGHT/2 + (angleDifference[1][1])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,polygonColor,
+				TOP_SCREEN_WIDTH /2 + (angleDifference[2][0])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,
+				TOP_SCREEN_HEIGHT/2 + (angleDifference[2][1])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,polygonColor,-distanceToPolygon/DRAWING_DISTANCE
 			);
 			//if the polygon has 4 sides draw another triangle
 			if (polygons[i][3] != -1){
 				C2D_DrawTriangle(
-					TOP_SCREEN_WIDTH /2 + (angleDifferenceA[0])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,
-					TOP_SCREEN_HEIGHT/2 + (angleDifferenceA[1])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,polygonColor,
-					TOP_SCREEN_WIDTH /2 + (angleDifferenceD[0])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,
-					TOP_SCREEN_HEIGHT/2 + (angleDifferenceD[1])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,polygonColor,
-					TOP_SCREEN_WIDTH /2 + (angleDifferenceC[0])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,
-					TOP_SCREEN_HEIGHT/2 + (angleDifferenceC[1])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,polygonColor,distanceToPolygon/DRAWING_DISTANCE
+					TOP_SCREEN_WIDTH /2 + (angleDifference[0][0])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,
+					TOP_SCREEN_HEIGHT/2 + (angleDifference[0][1])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,polygonColor,
+					TOP_SCREEN_WIDTH /2 + (angleDifference[3][0])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,
+					TOP_SCREEN_HEIGHT/2 + (angleDifference[3][1])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,polygonColor,
+					TOP_SCREEN_WIDTH /2 + (angleDifference[2][0])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,
+					TOP_SCREEN_HEIGHT/2 + (angleDifference[2][1])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,polygonColor,-distanceToPolygon/DRAWING_DISTANCE
 				);
 			}
 		}
@@ -263,54 +139,36 @@ for (int whichDisplay=0;whichDisplay<2;whichDisplay++){
 
 		#ifdef DRAW_LINES
 		C2D_DrawLine(
-		TOP_SCREEN_WIDTH /2 + (angleDifferenceA[0])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,
-		TOP_SCREEN_HEIGHT/2 + (angleDifferenceA[1])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,lineColor,
-		TOP_SCREEN_WIDTH /2 + (angleDifferenceB[0])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,
-		TOP_SCREEN_HEIGHT/2 + (angleDifferenceB[1])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,lineColor,
+		TOP_SCREEN_WIDTH /2 + (angleDifference[0][0])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,
+		TOP_SCREEN_HEIGHT/2 + (angleDifference[0][1])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,lineColor,
+		TOP_SCREEN_WIDTH /2 + (angleDifference[1][0])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,
+		TOP_SCREEN_HEIGHT/2 + (angleDifference[1][1])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,lineColor,
 		LINE_WIDTH,0);
 		C2D_DrawLine(
-		TOP_SCREEN_WIDTH /2 + (angleDifferenceC[0])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,
-		TOP_SCREEN_HEIGHT/2 + (angleDifferenceC[1])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,lineColor,
-		TOP_SCREEN_WIDTH /2 + (angleDifferenceB[0])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,
-		TOP_SCREEN_HEIGHT/2 + (angleDifferenceB[1])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,lineColor,
+		TOP_SCREEN_WIDTH /2 + (angleDifference[2][0])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,
+		TOP_SCREEN_HEIGHT/2 + (angleDifference[2][1])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,lineColor,
+		TOP_SCREEN_WIDTH /2 + (angleDifference[1][0])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,
+		TOP_SCREEN_HEIGHT/2 + (angleDifference[1][1])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,lineColor,
 		LINE_WIDTH,0);
 		C2D_DrawLine(
-		TOP_SCREEN_WIDTH /2 + (angleDifferenceA[0])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,
-		TOP_SCREEN_HEIGHT/2 + (angleDifferenceA[1])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,lineColor,
-		TOP_SCREEN_WIDTH /2 + (angleDifferenceC[0])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,
-		TOP_SCREEN_HEIGHT/2 + (angleDifferenceC[1])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,lineColor,
+		TOP_SCREEN_WIDTH /2 + (angleDifference[0][0])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,
+		TOP_SCREEN_HEIGHT/2 + (angleDifference[0][1])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,lineColor,
+		TOP_SCREEN_WIDTH /2 + (angleDifference[2][0])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,
+		TOP_SCREEN_HEIGHT/2 + (angleDifference[2][1])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,lineColor,
 		LINE_WIDTH,0);
 		//draw additional lines if a face has 4 corners
 		if (polygons[i][3] != -1){
-			/*
 			C2D_DrawLine(
-			TOP_SCREEN_WIDTH /2 + (angleDifferenceD[0])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,
-			TOP_SCREEN_HEIGHT/2 + (angleDifferenceD[1])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,lineColor,
-			TOP_SCREEN_WIDTH /2 + (angleDifferenceC[0])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,
-			TOP_SCREEN_HEIGHT/2 + (angleDifferenceC[1])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,lineColor,
+			TOP_SCREEN_WIDTH /2 + (angleDifference[3][0])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,
+			TOP_SCREEN_HEIGHT/2 + (angleDifference[3][1])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,lineColor,
+			TOP_SCREEN_WIDTH /2 + (angleDifference[2][0])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,
+			TOP_SCREEN_HEIGHT/2 + (angleDifference[2][1])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,lineColor,
 			LINE_WIDTH,0);
-			*/
-			/*
-			C2D_DrawLine(
-			TOP_SCREEN_WIDTH /2 + (angleDifferenceD[0])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,
-			TOP_SCREEN_HEIGHT/2 + (angleDifferenceD[1])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,lineColor,
-			TOP_SCREEN_WIDTH /2 + (angleDifferenceB[0])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,
-			TOP_SCREEN_HEIGHT/2 + (angleDifferenceB[1])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,lineColor,
-			LINE_WIDTH,0);
-			*/
-			/*
-			C2D_DrawLine(
-			TOP_SCREEN_WIDTH /2 + (angleDifferenceD[0])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,
-			TOP_SCREEN_HEIGHT/2 + (angleDifferenceD[1])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,lineColor,
-			TOP_SCREEN_WIDTH /2 + (angleDifferenceA[0])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,
-			TOP_SCREEN_HEIGHT/2 + (angleDifferenceA[1])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,lineColor,
-			LINE_WIDTH,0);
-			*/
 		}
 		#endif
 
 		#ifdef DRAW_VERTECIES
-		C2D_DrawRectSolid(TOP_SCREEN_WIDTH/2 + (angleDifferenceA[0])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,TOP_SCREEN_HEIGHT/2 + (angleDifferenceA[1])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,0,POINT_SIZE,POINT_SIZE, vertexColor);
+		C2D_DrawRectSolid(TOP_SCREEN_WIDTH/2 + (angleDifference[0][0])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,TOP_SCREEN_HEIGHT/2 + (angleDifference[0][1])*(TOP_SCREEN_WIDTH/TOP_SCREEN_HEIGHT)*FOV,0,POINT_SIZE,POINT_SIZE, vertexColor);
 		#endif
 	}
 }
